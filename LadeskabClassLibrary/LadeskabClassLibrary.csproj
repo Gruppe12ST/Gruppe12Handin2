@@ -43,11 +43,12 @@
   <ItemGroup>
     <Compile Include="ChargeControl.cs" />
     <Compile Include="Display.cs" />
-    <Compile Include="IChargeControl.cs" />
-    <Compile Include="IDisplay.cs" />
-    <Compile Include="IDoor.cs" />
-    <Compile Include="IRFIDReader.cs" />
-    <Compile Include="IUsbCharger.cs" />
+    <Compile Include="Interfaces\ILogFile.cs" />
+    <Compile Include="Interfaces\IChargeControl.cs" />
+    <Compile Include="Interfaces\IDisplay.cs" />
+    <Compile Include="Interfaces\IDoor.cs" />
+    <Compile Include="Interfaces\IRFIDReader.cs" />
+    <Compile Include="Interfaces\IUsbCharger.cs" />
     <Compile Include="LogFile.cs" />
     <Compile Include="RFIDReader.cs" />
     <Compile Include="Door.cs" />
@@ -55,5 +56,6 @@
     <Compile Include="StationControl.cs" />
     <Compile Include="USBCharger.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

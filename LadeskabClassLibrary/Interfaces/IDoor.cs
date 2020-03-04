@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    interface IRFIDReader
+    public class DoorOCEventArgs : EventArgs
+    {
+
+    }
+    interface IDoor
     {
     }
 }
