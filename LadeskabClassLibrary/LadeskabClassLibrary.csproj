@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChargeControl.cs" />
+    <Compile Include="DateTimeProvider.cs" />
     <Compile Include="Display.cs" />
+    <Compile Include="Interfaces\IDateTimeProvider.cs" />
     <Compile Include="Interfaces\ILogFile.cs" />
     <Compile Include="Interfaces\IChargeControl.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />
