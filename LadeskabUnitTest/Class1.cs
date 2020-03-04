@@ -15,5 +15,11 @@ namespace LadeskabUnitTest
         {
             
         }
+
+        [Test]
+        public void Test_Test2()
+        {
+
+        }
     }
 }
