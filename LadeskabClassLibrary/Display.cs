@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    class Display
+    class Display : IDisplay
     {
+        public void Show(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

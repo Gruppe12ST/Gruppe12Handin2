@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    class Door
+    class Door:IDoor
     {
     }
 }

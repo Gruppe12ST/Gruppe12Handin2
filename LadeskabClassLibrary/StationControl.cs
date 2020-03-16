@@ -8,5 +8,6 @@ namespace LadeskabClassLibrary
 {
     class StationControl
     {
+
     }
 }
