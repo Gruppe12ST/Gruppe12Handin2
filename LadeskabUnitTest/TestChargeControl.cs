@@ -37,13 +37,13 @@ namespace LadeskabUnitTest
             _display.Received(1).Show("Telefonen er fuldt opladt");
         }
 
-        //[TestCase(0)]
-        //[TestCase(6)]                                                  
-        //public void TestHandleEventNotDone(int current)
-        //{
-        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
-        //    _display.DidNotReceive().Show("Telefonen er fuldt opladt");
-        //}
+        [TestCase(0)]
+        [TestCase(6)]
+        public void TestHandleEventNotDone(int current)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
+            _display.DidNotReceive().Show("Telefonen er fuldt opladt");
+        }
 
         [TestCase(1,3,5)]
         public void TestHandleEventDoneRepeat(int current1, int current2, int current3)
@@ -54,13 +54,13 @@ namespace LadeskabUnitTest
             _display.Received(1).Show("Telefonen er fuldt opladt");
         }
 
-        [TestCase(6)]
-        [TestCase(500)]                                                
-        public void TestHandleEventCharging(int current)
-        {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
-            _display.Received(1).Show("Telefonen lader");
-        }
+        //[TestCase(6)]
+        //[TestCase(500)]                                                
+        //public void TestHandleEventCharging(int current)
+        //{
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
+        //    _display.Received(1).Show("Telefonen lader");
+        //}
 
 
         [TestCase(5)]
