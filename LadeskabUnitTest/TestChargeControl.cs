@@ -13,7 +13,7 @@ namespace LadeskabUnitTest
     [TestFixture]
     public class TestChargeControl
     {
-        // Generelt: arbejd lidt hvordan jeg laver gode navne til tests!!!!!!!!!!!!!!!
+        // Generelt: arbejd lidt med hvordan jeg laver gode navne til tests!!!!!!!!!!!!!!!
 
         private IUSBCharger _usbCharger;
         private IDisplay _display;
@@ -37,13 +37,13 @@ namespace LadeskabUnitTest
             _display.Received(1).Show("Telefonen er fuldt opladt");
         }
 
-        [TestCase(0)]
-        [TestCase(6)]                                                  
-        public void TestHandleEventNotDone(int current)
-        {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
-            _display.DidNotReceive().Show("Telefonen er fuldt opladt");
-        }
+        //[TestCase(0)]
+        //[TestCase(6)]                                                  
+        //public void TestHandleEventNotDone(int current)
+        //{
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
+        //    _display.DidNotReceive().Show("Telefonen er fuldt opladt");
+        //}
 
         [TestCase(1,3,5)]
         public void TestHandleEventDoneRepeat(int current1, int current2, int current3)
