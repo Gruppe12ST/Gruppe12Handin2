@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    interface IDisplay
+    public interface IDisplay
     {
         void Show(string message);
     }
