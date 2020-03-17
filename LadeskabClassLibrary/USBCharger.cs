@@ -12,7 +12,7 @@ namespace LadeskabClassLibrary
 
         public double CurrentValue { get; private set; }                //Igen OBS - Hvad er funktionen af denne????????????????????????????????
 
-        public bool Connected { get; private set; }
+        public bool Connected { get; private set; }                 
 
         public void StartCharge()
         {

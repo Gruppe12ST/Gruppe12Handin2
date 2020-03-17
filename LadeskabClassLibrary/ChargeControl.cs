@@ -57,6 +57,7 @@ namespace LadeskabClassLibrary
                 if (_current > 500)
                 {
                     _display.Show("Der er sket en fejl. Frakobl straks din telefon");
+                    _state = ChargingState.Error;
                 }
             }
         }
