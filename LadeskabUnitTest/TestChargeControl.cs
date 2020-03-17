@@ -71,14 +71,14 @@ namespace LadeskabUnitTest
             _display.DidNotReceive().Show("Telefonen lader");
         }
 
-        [TestCase(6, 200, 500)]
-        public void TestHandleEventChargingRepeat(int current1, int current2, int current3)
-        {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current1 });
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current2 });
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current3 });
-            _display.Received(1).Show("Telefonen lader");
-        }
+        //[TestCase(6, 200, 500)]
+        //public void TestHandleEventChargingRepeat(int current1, int current2, int current3)
+        //{
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current1 });
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current2 });
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current3 });
+        //    _display.Received(1).Show("Telefonen lader");
+        //}
 
     }
 }
