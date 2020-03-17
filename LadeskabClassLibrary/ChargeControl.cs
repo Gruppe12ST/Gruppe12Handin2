@@ -30,9 +30,9 @@ namespace LadeskabClassLibrary
 
         private ChargingState _state = ChargingState.NotCharging;
 
-        private void HandleCurrentChangedEvent(object sender, CurrentEventArgs e)       // Ideen er, at hvis strømmen ændrer sig en lille smule (fx fra 490 til 500 mA) er det ikke nødvendigt
-        {                                                                               // at kalde display og metoden show igen hvis systemet fx allerede er i stadiet "Charging". Metoden
-            _current = e.Current;                                                       // Show() behøver altså kun blive kaldt når opladningen rent faktisk skifter fra fx Charging til Done.
+        private void HandleCurrentChangedEvent(object sender, CurrentEventArgs e)       // Årsagen til dette er, at hvis strømmen ændrer sig en lille smule (fx fra 490 til 500 mA) er det ikke
+        {                                                                               // nødvendigt at kalde display og metoden show igen hvis systemet fx allerede er i stadiet "Charging".
+            _current = e.Current;                                                       // Metoden Show() behøver altså kun blive kaldt når opladningen rent faktisk skifter fra fx Charging til Done.
 
             if (_state!=ChargingState.Done)
             {

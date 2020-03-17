@@ -31,7 +31,7 @@ namespace LadeskabUnitTest
         }
 
         [TestCase(1)]
-        [TestCase(5)]                                                       //OBS tænk noget BVA!!!!!!!!!!!! //Lav en test med noget _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current }); for derefter //Assert.That(_uut._current, Is.EqualTo(current));
+        [TestCase(5)]                                                       
         public void TestHandleEventDone(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
@@ -82,6 +82,7 @@ namespace LadeskabUnitTest
         }
 
         [TestCase(501)]
+        [TestCase(800)]
         public void TestHandleEventError(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
@@ -89,6 +90,7 @@ namespace LadeskabUnitTest
         }
 
         [TestCase(500)]
+        [TestCase(499)]
         public void TestHandleEventNotError(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
@@ -112,5 +114,18 @@ namespace LadeskabUnitTest
             Assert.That(_uut.IsConnected, Is.EqualTo(connectionStatus));
         }
 
+        [Test]
+        public void TestStartCharge()
+        {
+            _uut.StartCharge();
+            _usbCharger.Received(1).StartCharge();
+        }
+
+        [Test]
+        public void TestStopCharge()
+        {
+            _uut.StopCharge();
+            _usbCharger.Received(1).StopCharge();
+        }
     }
 }
