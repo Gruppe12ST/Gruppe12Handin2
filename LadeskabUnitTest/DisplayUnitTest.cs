@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace LadeskabUnitTest
 {
     [TestFixture]
-    public class Class1
+    public class DisplayUnitTest
     {
         [Test]
         public void Test_test()

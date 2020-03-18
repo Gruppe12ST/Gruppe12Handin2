@@ -8,6 +8,10 @@ namespace LadeskabClassLibrary
 {
     class StationControl
     {
+        public StationControl(IRFIDReader rfidReader, IDoor door, IUsbCharger usbCharger)
+        {
+            
+        }
 
     }
 }
