@@ -50,7 +50,7 @@
     <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="Interfaces\IDoor.cs" />
     <Compile Include="Interfaces\IRFIDReader.cs" />
-    <Compile Include="Interfaces\IUsbCharger.cs" />
+    <Compile Include="Interfaces\IUSBCharger.cs" />
     <Compile Include="LogFile.cs" />
     <Compile Include="RFIDReader.cs" />
     <Compile Include="Door.cs" />
