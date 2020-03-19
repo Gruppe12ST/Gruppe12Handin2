@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    class Door : IDoor
+    public class Door : IDoor
     {
         public bool DoorStatus => throw new NotImplementedException();
 
@@ -14,12 +14,12 @@ namespace LadeskabClassLibrary
 
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void UnlockDoor()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

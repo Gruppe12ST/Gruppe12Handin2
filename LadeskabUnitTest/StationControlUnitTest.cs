@@ -16,7 +16,6 @@ namespace LadeskabUnitTest
         private IDisplay _display;
         private IChargeControl _chargeControl;
         private IDoor _door;
-        private IUSBCharger _usbCharger;
 
         private StationControl _uut;
 
@@ -27,24 +26,91 @@ namespace LadeskabUnitTest
             _display = Substitute.For<IDisplay>();
             _chargeControl = Substitute.For<IChargeControl>();
             _door = Substitute.For<IDoor>();
-            _usbCharger = Substitute.For<IUSBCharger>();
 
-            _uut = new StationControl(_rfidReader,_door,_usbCharger,_chargeControl,_display);
+            _uut = new StationControl(_rfidReader,_door,_chargeControl,_display);
 
         }
 
-        [TestCase(true)]
-        public void DoorOpenEvent(bool DoorState)
+        [Test]
+        public void HandleDoorChangedEvent_Open()
         {
-            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs {Open = DoorState});
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs {Open = true});
             _display.Received(1).Show("Tilslut telefon");
         }
 
-        [TestCase(false)]
-        public void DoorClosedEvent(bool DoorState)
+        [Test]
+        public void HandleDoorChangedEvent_OpenClosed()
         {
-            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = DoorState });
+            //Døren skal have været åbnet før den kan lukkes
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs {Open = true});
+
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = false });
             _display.Received(1).Show("Indlæs RFID");
         }
+
+        [Test]
+        public void HandleDoorChangedEvent_OpenClosedOpen()
+        {
+            //Døren skal have været åbnet før den kan lukkes
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = true });
+            //Døren lukkes
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = false });
+            //Døren åbnes igen
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = true });
+
+            _display.Received(2).Show("Tilslut telefon");
+        }
+
+
+        [Test]
+        public void RFIDDetected_skabAvailable_usbChargerNotConnected()
+        {
+            _chargeControl.IsConnected().Returns(false);
+            _uut.RFIDDetected(1);
+
+            _display.Received(1).Show("Tilslutningsfejl");
+        }
+
+        [TestCase( 1)]
+        [TestCase(0006)]
+        public void RFIDDetected_skabAvailable_usbChargeConnected(int id)
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _uut.RFIDDetected(id);
+
+            _door.Received(1).LockDoor();
+            _display.Received(1).Show("Ladeskab optaget");
+            _chargeControl.Received(1).StartCharge();
+            
+            Assert.That(_uut._id,Is.EqualTo(id));
+
+        }
+
+        [TestCase(2, 5)]
+        public void RFIDDetected_skabLocked_WrongRFID(int id, int newid)
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _uut.RFIDDetected(id);
+
+            _uut.RFIDDetected(newid);
+
+            _display.Received(1).Show("RFID fejl");
+        }
+
+        [TestCase(5, 5)]
+        [TestCase(0045,45)]
+        public void RFIDDetected_skabLocked_CorrectRFID(int id, int newid)
+        {
+            _chargeControl.IsConnected().Returns(true);
+            _uut.RFIDDetected(id);
+
+            _uut.RFIDDetected(newid);
+
+            _chargeControl.Received(1).StopCharge();
+            _door.Received(1).UnlockDoor();
+            _display.Show("Fjern telefon");
+
+        }
+
     }
 }

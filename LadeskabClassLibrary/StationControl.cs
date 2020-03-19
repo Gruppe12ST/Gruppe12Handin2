@@ -10,12 +10,24 @@ namespace LadeskabClassLibrary
     {
         private readonly IDoor _door;
         private readonly IDisplay _display;
+        private readonly IRFIDReader _rfidReader;
+        private readonly IChargeControl _chargecontrol;
+
         public bool _doorOpen { get; private set; }
-        public StationControl(IRFIDReader rfidReader, IDoor door, IUSBCharger usbCharger, IChargeControl chargeControl,IDisplay display)
+        public int _id { get; private set; }
+        public int _newid { get; private set; }
+
+
+        public StationControl(IRFIDReader rfidReader, IDoor door, IChargeControl chargeControl,IDisplay display)
         {
             _door = door;
             _display = display;
+            _rfidReader = rfidReader;
+            _chargecontrol = chargeControl;
+
             _door.DoorOCEvent += HandleDoorChangedEvent;
+            // _rfidReader.EtEllerAndetEvent += HandleRFIDDetected;
+            _display.Show("Ladeskab ledigt");
         }
 
 
@@ -32,7 +44,7 @@ namespace LadeskabClassLibrary
         {
             _doorOpen = e.Open;
 
-            if (_state!=LadeskabState.Locked)
+            if (_state == LadeskabState.Available)
             {
                 if (_doorOpen)
                 {
@@ -41,16 +53,71 @@ namespace LadeskabClassLibrary
                 }
             }
 
-            if (_state != LadeskabState.Locked)
+            if (_state == LadeskabState.DoorOpen)
             {
                 if (!_doorOpen)
                 {
                     _display.Show("Indlæs RFID");
-
+                    _state = LadeskabState.Available;
                 }
             }
 
+        }
+
+        public void RFIDDetected(int id)
+        {
+            switch (_state)
+            {
+                case LadeskabState.Available:
+                    if (_chargecontrol.IsConnected())
+                    {
+                        _door.LockDoor();
+                        //Noget med at gemme til fil
+                        _display.Show("Ladeskab optaget");
+                        _chargecontrol.StartCharge();
+                        _id = id;
+                        _state = LadeskabState.Locked;
+
+                    }
+                    else
+                    {
+                        _display.Show("Tilslutningsfejl");
+                    }
+                    break;
+
+                case LadeskabState.Locked:
+                    _newid = id;
+
+                    if (CheckId())
+                    {
+                        _chargecontrol.StopCharge();
+                        _door.UnlockDoor();
+                        //Log til fil
+                        _display.Show("Fjern telefon");
+                        _state = LadeskabState.Available;
+                    }
+                    else
+                    {
+                        _display.Show("RFID fejl");
+                    }
+                    break;
+
+
+            }
             
+
+        }
+
+        private bool CheckId()
+        {
+            if (_id == _newid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
