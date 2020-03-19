@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    interface IDateTimeProvider
+    public interface IDateTimeProvider
     {
+        DateTime GetDateTime();
     }
 }

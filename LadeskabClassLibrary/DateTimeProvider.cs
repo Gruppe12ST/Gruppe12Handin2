@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    class DateTimeProvider
-    {
+    class DateTimeProvider : IDateTimeProvider
+    { 
+        private DateTime _gen = DateTime.Now;
+
+        public DateTime GetDateTime()
+        {
+            return _gen;
+        }
     }
 }
