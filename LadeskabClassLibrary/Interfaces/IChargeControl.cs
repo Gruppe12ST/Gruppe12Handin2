@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LadeskabClassLibrary
 {
-    interface IChargeControl
+    public interface IChargeControl
     {
     }
 }

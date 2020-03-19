@@ -12,7 +12,7 @@ namespace LadeskabClassLibrary
         //Either open or closed
         public bool Open { set; get; }
     }
-    interface IDoor
+    public interface IDoor
     {
         event EventHandler<DoorOCEventArgs> DoorOCEvent;
         

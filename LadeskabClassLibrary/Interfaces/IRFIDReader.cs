@@ -11,7 +11,7 @@ namespace LadeskabClassLibrary
 
     }
 
-    interface IRFIDReader
+    public interface IRFIDReader
     {
     }
 }
