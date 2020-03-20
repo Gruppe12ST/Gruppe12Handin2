@@ -14,9 +14,8 @@ namespace LadeskabClassLibrary
         private readonly IChargeControl _chargecontrol;
 
         public bool _doorOpen { get; private set; }
-        public int _id { get; private set; }
+        public int _id { get;  private set; }
         public int _newid { get; private set; }
-
 
         public StationControl(IRFIDReader rfidReader, IDoor door, IChargeControl chargeControl,IDisplay display)
         {
@@ -26,7 +25,7 @@ namespace LadeskabClassLibrary
             _chargecontrol = chargeControl;
 
             _door.DoorOCEvent += HandleDoorChangedEvent;
-            // _rfidReader.EtEllerAndetEvent += HandleRFIDDetected;
+             _rfidReader.RfidDetectedEvent += HandleRFIDDetectedEvent;
             _display.Show("Ladeskab ledigt");
         }
 
@@ -63,9 +62,11 @@ namespace LadeskabClassLibrary
             }
 
         }
-
-        public void RFIDDetected(int id)
+        
+        private void HandleRFIDDetectedEvent(object sender, RfidDetectedEventArgs e)
         {
+            int id = e.Id;
+
             switch (_state)
             {
                 case LadeskabState.Available:
@@ -104,9 +105,9 @@ namespace LadeskabClassLibrary
 
 
             }
-            
-
         }
+
+        
 
         private bool CheckId()
         {

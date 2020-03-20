@@ -21,7 +21,8 @@ namespace LadeskabConsoleApp
 
             StationControl stationControl = new StationControl(rfidReader,door,chargeControl,display);
 
-           
+            rfidReader.SetRfidId(2);
+            rfidReader.SetRfidId(52);
         }
     }
 }

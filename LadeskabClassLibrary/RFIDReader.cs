@@ -9,10 +9,13 @@ namespace LadeskabClassLibrary
     public class RFIDReader : IRFIDReader
     {
         public event EventHandler<RfidDetectedEventArgs> RfidDetectedEvent;
+        public int _id { get; private set; }
 
         public void SetRfidId(int id)                               // Denne metode skal bruges fra vores App, så vi kan finde 
-        {                                                           // på værdier til RFID-tags, der "scannes" på vores ladeskab
+        {
+            //_id = id;                                                     // på værdier til RFID-tags, der "scannes" på vores ladeskab
             IdDetected(new RfidDetectedEventArgs {Id = id});
+            _id = id;
         }
 
         protected virtual void IdDetected(RfidDetectedEventArgs e)

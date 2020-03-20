@@ -14,5 +14,7 @@ namespace LadeskabClassLibrary
     public interface IRFIDReader
     {
         event EventHandler<RfidDetectedEventArgs> RfidDetectedEvent;
+        int _id { get; }
+        void SetRfidId(int id);
     }
 }

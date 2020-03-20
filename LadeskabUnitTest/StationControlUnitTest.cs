@@ -66,7 +66,7 @@ namespace LadeskabUnitTest
         public void RFIDDetected_skabAvailable_usbChargerNotConnected()
         {
             _chargeControl.IsConnected().Returns(false);
-            _uut.RFIDDetected(1);
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs {Id = 1});
 
             _display.Received(1).Show("Tilslutningsfejl");
         }
@@ -76,13 +76,15 @@ namespace LadeskabUnitTest
         public void RFIDDetected_skabAvailable_usbChargeConnected(int id)
         {
             _chargeControl.IsConnected().Returns(true);
-            _uut.RFIDDetected(id);
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = id });
+
 
             _door.Received(1).LockDoor();
             _display.Received(1).Show("Ladeskab optaget");
             _chargeControl.Received(1).StartCharge();
-            
-            Assert.That(_uut._id,Is.EqualTo(id));
+
+            int _id = _uut._id;
+            Assert.That(_id,Is.EqualTo(id));
 
         }
 
@@ -90,9 +92,9 @@ namespace LadeskabUnitTest
         public void RFIDDetected_skabLocked_WrongRFID(int id, int newid)
         {
             _chargeControl.IsConnected().Returns(true);
-            _uut.RFIDDetected(id);
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = id });
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = newid });
 
-            _uut.RFIDDetected(newid);
 
             _display.Received(1).Show("RFID fejl");
         }
@@ -102,9 +104,8 @@ namespace LadeskabUnitTest
         public void RFIDDetected_skabLocked_CorrectRFID(int id, int newid)
         {
             _chargeControl.IsConnected().Returns(true);
-            _uut.RFIDDetected(id);
-
-            _uut.RFIDDetected(newid);
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = id });
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = newid });
 
             _chargeControl.Received(1).StopCharge();
             _door.Received(1).UnlockDoor();
