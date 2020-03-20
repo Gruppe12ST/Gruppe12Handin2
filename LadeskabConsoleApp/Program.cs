@@ -20,8 +20,7 @@ namespace LadeskabConsoleApp
             IChargeControl chargeControl = new ChargeControl(usbCharger,display);
 
             StationControl stationControl = new StationControl(rfidReader,door,chargeControl,display);
-
-           
+            
         }
     }
 }
