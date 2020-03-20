@@ -13,9 +13,8 @@ namespace LadeskabClassLibrary
 
         public void SetRfidId(int id)                               // Denne metode skal bruges fra vores App, så vi kan finde 
         {
-            //_id = id;                                                     // på værdier til RFID-tags, der "scannes" på vores ladeskab
+                                                                   // på værdier til RFID-tags, der "scannes" på vores ladeskab
             IdDetected(new RfidDetectedEventArgs {Id = id});
-            _id = id;
         }
 
         protected virtual void IdDetected(RfidDetectedEventArgs e)
