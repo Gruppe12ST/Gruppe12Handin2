@@ -21,7 +21,6 @@ namespace LadeskabUnitTest
             _receivedEventArgs = null;
 
             _uut = new RFIDReader();
-            _uut.SetRfidId(234);
 
             // event listener
             _uut.RfidDetectedEvent +=
