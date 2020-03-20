@@ -16,6 +16,7 @@ namespace LadeskabUnitTest
         private IDisplay _display;
         private IChargeControl _chargeControl;
         private IDoor _door;
+        private ILogFile _logfile;
 
         private StationControl _uut;
 
@@ -26,8 +27,8 @@ namespace LadeskabUnitTest
             _display = Substitute.For<IDisplay>();
             _chargeControl = Substitute.For<IChargeControl>();
             _door = Substitute.For<IDoor>();
-
-            _uut = new StationControl(_rfidReader,_door,_chargeControl,_display);
+            _logfile = Substitute.For<ILogFile>();
+            _uut = new StationControl(_rfidReader,_door,_chargeControl,_display,_logfile);
 
         }
 
@@ -82,6 +83,7 @@ namespace LadeskabUnitTest
             _door.Received(1).LockDoor();
             _display.Received(1).Show("Ladeskab optaget");
             _chargeControl.Received(1).StartCharge();
+            _logfile.Received(1).LogDoorLocked(id);
 
             int _id = _uut._id;
             Assert.That(_id,Is.EqualTo(id));
@@ -94,7 +96,7 @@ namespace LadeskabUnitTest
             _chargeControl.IsConnected().Returns(true);
             _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = id });
             _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = newid });
-
+            _logfile.DidNotReceive().LogDoorUnlocked(newid);
 
             _display.Received(1).Show("RFID fejl");
         }
@@ -106,6 +108,7 @@ namespace LadeskabUnitTest
             _chargeControl.IsConnected().Returns(true);
             _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = id });
             _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = newid });
+            _logfile.Received(1).LogDoorUnlocked(newid);
 
             _chargeControl.Received(1).StopCharge();
             _door.Received(1).UnlockDoor();

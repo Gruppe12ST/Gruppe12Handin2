@@ -16,10 +16,10 @@ namespace LadeskabConsoleApp
             IDoor door = new Door();
             IUSBCharger usbCharger = new USBCharger();
             IDisplay display = new Display();
-
+            ILogFile logfile = new LogFile();
             IChargeControl chargeControl = new ChargeControl(usbCharger,display);
 
-            StationControl stationControl = new StationControl(rfidReader,door,chargeControl,display);
+            StationControl stationControl = new StationControl(rfidReader,door,chargeControl,display,logfile);
             
         }
     }

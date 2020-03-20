@@ -12,17 +12,19 @@ namespace LadeskabClassLibrary
         private readonly IDisplay _display;
         private readonly IRFIDReader _rfidReader;
         private readonly IChargeControl _chargecontrol;
+        private readonly ILogFile _logfile;
 
         public bool _doorOpen { get; private set; }
         public int _id { get;  private set; }
         public int _newid { get; private set; }
 
-        public StationControl(IRFIDReader rfidReader, IDoor door, IChargeControl chargeControl,IDisplay display)
+        public StationControl(IRFIDReader rfidReader, IDoor door, IChargeControl chargeControl,IDisplay display, ILogFile logfile)
         {
             _door = door;
             _display = display;
             _rfidReader = rfidReader;
             _chargecontrol = chargeControl;
+            _logfile = logfile;
 
             _door.DoorOCEvent += HandleDoorChangedEvent;
              _rfidReader.RfidDetectedEvent += HandleRFIDDetectedEvent;
@@ -73,7 +75,7 @@ namespace LadeskabClassLibrary
                     if (_chargecontrol.IsConnected())
                     {
                         _door.LockDoor();
-                        //Noget med at gemme til fil
+                        _logfile.LogDoorLocked(id);
                         _display.Show("Ladeskab optaget");
                         _chargecontrol.StartCharge();
                         _id = id;
@@ -93,7 +95,7 @@ namespace LadeskabClassLibrary
                     {
                         _chargecontrol.StopCharge();
                         _door.UnlockDoor();
-                        //Log til fil
+                        _logfile.LogDoorUnlocked(id);
                         _display.Show("Fjern telefon");
                         _state = LadeskabState.Available;
                     }
