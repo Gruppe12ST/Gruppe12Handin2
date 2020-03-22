@@ -12,10 +12,8 @@ using NUnit.Framework;
 namespace LadeskabUnitTest
 {
     [TestFixture]
-    public class TestChargeControl
+    public class ChargeControlUnitTest
     {
-        // Generelt: arbejd lidt med hvordan jeg laver gode navne til tests!!!!!!!!!!!!!!!
-
         private IUSBCharger _usbCharger;
         private IDisplay _display;
 
@@ -32,7 +30,7 @@ namespace LadeskabUnitTest
 
         [TestCase(1)]
         [TestCase(5)]                                                       
-        public void TestHandleEventDone(int current)
+        public void HandleEventDoneCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.Received(1).Show("Telefonen er fuldt opladt");
@@ -40,14 +38,14 @@ namespace LadeskabUnitTest
 
         [TestCase(0)]
         [TestCase(6)]
-        public void TestHandleEventNotDone(int current)
+        public void HandleEventNotDoneCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.DidNotReceive().Show("Telefonen er fuldt opladt");
         }
 
         [TestCase(1, 3, 5)]
-        public void TestHandleEventDoneRepeat(int current1, int current2, int current3)
+        public void HandleEventDoneChargingRepeat(int current1, int current2, int current3)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current1 });
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current2 });
@@ -57,7 +55,7 @@ namespace LadeskabUnitTest
 
         [TestCase(6)]
         [TestCase(500)]
-        public void TestHandleEventCharging(int current)
+        public void HandleEventCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.Received(1).Show("Telefonen lader");
@@ -66,14 +64,14 @@ namespace LadeskabUnitTest
 
         [TestCase(5)]
         [TestCase(501)]
-        public void TestHandleEventNotCharging(int current)
+        public void HandleEventNotCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.DidNotReceive().Show("Telefonen lader");
         }
 
         [TestCase(6, 200, 500)]
-        public void TestHandleEventChargingRepeat(int current1, int current2, int current3)
+        public void HandleEventChargingRepeat(int current1, int current2, int current3)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current1 });
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current2 });
@@ -83,7 +81,7 @@ namespace LadeskabUnitTest
 
         [TestCase(501)]
         [TestCase(800)]
-        public void TestHandleEventError(int current)
+        public void HandleEventErrorCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.Received(1).Show("Der er sket en fejl. Frakobl straks din telefon");
@@ -91,14 +89,14 @@ namespace LadeskabUnitTest
 
         [TestCase(500)]
         [TestCase(499)]
-        public void TestHandleEventNotError(int current)
+        public void HandleEventNotErrorCharging(int current)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
             _display.DidNotReceive().Show("Der er sket en fejl. Frakobl straks din telefon");
         }
 
         [TestCase(501, 700,1200)]
-        public void TestHandleEventErrorRepeat(int current1, int current2, int current3)
+        public void HandleEventErrorChargingRepeat(int current1, int current2, int current3)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current1 });
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current2 });

@@ -26,7 +26,7 @@ namespace LadeskabClassLibrary
 
         }
 
-        private void CurrentChanged(CurrentEventArgs e)                 //OBS protected virtual void???? Læs op på dette!!!!!!!!!!!!!!!!!!!!!!!!!!
+        private void CurrentChanged(CurrentEventArgs e)                
         {
             CurrentValueEvent?.Invoke(this, e);
             //CurrentValue = e.Current;

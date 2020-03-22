@@ -10,7 +10,7 @@ namespace LadeskabUnitTest
 {
     [TestFixture]
 
-    class TestUSBCharger
+    class USBChargerUnitTest
     {
         private USBCharger _uut;
         private CurrentEventArgs _recievedEventArgs;
