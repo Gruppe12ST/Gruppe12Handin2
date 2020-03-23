@@ -9,15 +9,16 @@ namespace LadeskabClassLibrary
 {
     public class DoorOCEventArgs : EventArgs
     {
-        //Either open or closed
         public bool Open { set; get; }
     }
+
     public interface IDoor
     {
         event EventHandler<DoorOCEventArgs> DoorOCEvent;
         
-        bool DoorStatus { get; }
-
+        int DoorStatus { get; }
+        bool DoorLock { get; }
+        void setDoor();
         void LockDoor();
         void UnlockDoor();
     }
