@@ -18,7 +18,7 @@ namespace LadeskabClassLibrary
         
         int DoorStatus { get; }
         bool DoorLock { get; }
-        void setDoor(int doorStatus);
+        void SetDoor(int doorStatus);
         void LockDoor();
         void UnlockDoor();
     }

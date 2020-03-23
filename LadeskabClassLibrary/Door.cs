@@ -12,9 +12,9 @@ namespace LadeskabClassLibrary
 
         public int DoorStatus { get; private set; } //Er den 1 er døren åben, er den 2 er døren lukket
 
-        public bool DoorLock { get; private set; }
+        public bool DoorLock { get; private set; } //Døren er låst ved true og åben ved false
 
-        public void setDoor(int doorStatus)
+        public void SetDoor(int doorStatus)
         {
             if (doorStatus == 1)
             {
