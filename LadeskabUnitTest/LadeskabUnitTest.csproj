@@ -62,7 +62,7 @@
     <Compile Include="RFIDReaderUnitTest.cs" />
     <Compile Include="StationControlUnitTest.cs" />
     <Compile Include="ChargeControlUnitTest.cs" />
-    <Compile Include="USBChargerUnitTest.cs" />
+    <Compile Include="USBChargerSimulatorUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

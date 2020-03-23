@@ -14,7 +14,7 @@ namespace LadeskabConsoleApp
             IRFIDReader rfidReader = new RFIDReader();
                 
             IDoor door = new Door();
-            IUSBCharger usbCharger = new USBCharger();
+            IUSBCharger usbCharger = new USBChargerSimulator();
             IDisplay display = new Display();
             ILogFile logfile = new LogFile();
             IChargeControl chargeControl = new ChargeControl(usbCharger,display);
