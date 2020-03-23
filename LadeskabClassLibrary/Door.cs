@@ -8,18 +8,39 @@ namespace LadeskabClassLibrary
 {
     public class Door : IDoor
     {
-        public bool DoorStatus => throw new NotImplementedException();
-
         public event EventHandler<DoorOCEventArgs> DoorOCEvent;
+
+        public int DoorStatus { get; private set; } //Er den 1 er døren åben, er den 2 er døren lukket
+
+        public bool DoorLock { get; private set; }    
+
+        public void setDoor()
+        {
+            if (DoorStatus == 1)
+            {
+                DoorChanged(new DoorOCEventArgs() {Open = true});
+            }
+            else if (DoorStatus == 2)
+            {
+                DoorChanged(new DoorOCEventArgs() {Open = false});
+            }
+        }
 
         public void LockDoor()
         {
-            //throw new NotImplementedException();
+            DoorLock = true;
+            DoorStatus = 2;
         }
 
         public void UnlockDoor()
         {
-            //throw new NotImplementedException();
+            DoorLock = false;
+            DoorStatus = 1;
+        }
+
+        protected virtual void DoorChanged(DoorOCEventArgs e)
+        {
+            DoorOCEvent?.Invoke(this, e);
         }
     }
 }
