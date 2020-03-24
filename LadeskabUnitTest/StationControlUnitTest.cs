@@ -33,6 +33,13 @@ namespace LadeskabUnitTest
         }
 
         [Test]
+        public void ZeroDoorChangeEvent()
+        {
+            _display.Received(1).Show("Ladeskab ledigt");
+            _display.DidNotReceive().Show("Tilslut telefon");
+        }
+
+        [Test]
         public void HandleDoorChangedEvent_Open()
         {
             _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs {Open = true});

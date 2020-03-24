@@ -8,9 +8,11 @@ namespace LadeskabClassLibrary
 {
     public class Display : IDisplay
     {
+        public string _message { get; private set; }
         public void Show(string message)
         {
-            Console.WriteLine(message);
+            _message = message;
+            Console.WriteLine(_message);
         }
     }
 }
