@@ -16,9 +16,9 @@ namespace LadeskabClassLibrary
     {
         event EventHandler<DoorOCEventArgs> DoorOCEvent;
         
-        int DoorStatus { get; }
+        bool DoorOpen { get; }
         bool DoorLock { get; }
-        void SetDoor(int doorStatus);
+        void SetDoor(bool doorOpen);
         void LockDoor();
         void UnlockDoor();
     }

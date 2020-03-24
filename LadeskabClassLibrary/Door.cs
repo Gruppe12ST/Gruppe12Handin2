@@ -10,34 +10,34 @@ namespace LadeskabClassLibrary
     {
         public event EventHandler<DoorOCEventArgs> DoorOCEvent;
 
-        public int DoorStatus { get; private set; } //Er den 1 er døren åben, er den 2 er døren lukket
+        public bool DoorOpen { get; private set; } 
 
         public bool DoorLock { get; private set; } //Døren er låst ved true og åben ved false
 
-        public void SetDoor(int doorStatus)
+        public void SetDoor(bool doorOpen)
         {
-            if (doorStatus == 1)
+            if (doorOpen)
             {
-                DoorChanged(new DoorOCEventArgs() { Open = true });
+                DoorOpen = true;
+                DoorChanged(new DoorOCEventArgs() { Open = DoorOpen });
             }
-            else if (doorStatus == 2)
+            else
             {
-                DoorChanged(new DoorOCEventArgs() { Open = false });
+                DoorOpen = false;
+                DoorChanged(new DoorOCEventArgs() { Open = DoorOpen });
             }
         }
 
         public void LockDoor()
         {
             DoorLock = true;
-            DoorStatus = 2;
-            //setDoor(2);
+            DoorOpen = false;
         }
 
         public void UnlockDoor()
         {
             DoorLock = false;
-            DoorStatus = 1;
-            //setDoor(1);
+            DoorOpen = true;
         }
 
         protected virtual void DoorChanged(DoorOCEventArgs e)
