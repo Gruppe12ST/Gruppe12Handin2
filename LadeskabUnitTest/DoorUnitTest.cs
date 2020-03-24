@@ -29,7 +29,7 @@ namespace LadeskabUnitTest
         [TestCase(2)]
         public void SetDoor_DoorChanged_EventFired(int doorStatus)
         {
-            _uut.setDoor(doorStatus);
+            _uut.SetDoor(doorStatus);
             Assert.That(_doorOcEventArgs,Is.Not.Null);
         }
 
@@ -37,21 +37,21 @@ namespace LadeskabUnitTest
         [TestCase(3)]
         public void SetDoor_WrongStatus_EventNotFired(int doorStatus)
         {
-            _uut.setDoor(doorStatus);
+            _uut.SetDoor(doorStatus);
             Assert.That(_doorOcEventArgs,Is.Null);
         }
 
         [TestCase(1)]
         public void SetDoor_DoorOpen_CorrectStatus(int doorStatus)
         {
-            _uut.setDoor(doorStatus);
+            _uut.SetDoor(doorStatus);
             Assert.That(_doorOcEventArgs.Open,Is.EqualTo(true));
         }
 
         [TestCase(2)]
         public void SetDoor_DoorClosed_CorrectStatus(int doorStatus)
         {
-            _uut.setDoor(doorStatus);
+            _uut.SetDoor(doorStatus);
             Assert.That(_doorOcEventArgs.Open, Is.EqualTo(false));
         }
 

@@ -12,11 +12,12 @@ namespace LadeskabConsoleApp
         static void Main(string[] args)
         {
             IRFIDReader rfidReader = new RFIDReader();
+            IDateTimeProvider dateTimeProvider = new DateTimeProvider();
                 
             IDoor door = new Door();
             IUSBCharger usbCharger = new USBChargerSimulator();
             IDisplay display = new Display();
-            ILogFile logfile = new LogFile();
+            ILogFile logfile = new LogFile(dateTimeProvider);
             IChargeControl chargeControl = new ChargeControl(usbCharger,display);
 
             StationControl stationControl = new StationControl(rfidReader,door,chargeControl,display,logfile);
