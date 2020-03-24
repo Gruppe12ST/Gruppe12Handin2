@@ -26,22 +26,32 @@ namespace LadeskabConsoleApp
 
             do
             {
-                Console.WriteLine("Indtast e, o, c, r");
+                Console.WriteLine("Kontrol menu:");
+                Console.WriteLine("-------------------");
+                Console.WriteLine("[E]    Exit programmet");
+                Console.WriteLine("[O]    Åben døren");
+                Console.WriteLine("[C]    Luk døren");
+                Console.WriteLine("[R]    Indlæs RFID-tag");
+
 
                 string input = Console.ReadLine();
 
                 switch (input)
                 {
                     case "e":
+                    case "E":
                         done = true;
                         break;
                     case "o":
+                    case "O":
                         door.SetDoor(true); 
                         break;
                     case "c":
+                    case "C":
                         door.SetDoor(false); 
                         break;
                     case "r":
+                    case "R":
                         Console.WriteLine("Indtast RFID: ");
                         string id = Console.ReadLine();
                         rfidReader.SetRfidId(Convert.ToInt16(id));
