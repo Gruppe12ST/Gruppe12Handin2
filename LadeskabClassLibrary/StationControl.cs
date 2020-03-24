@@ -63,6 +63,11 @@ namespace LadeskabClassLibrary
                 }
             }
 
+            if (_state == LadeskabState.Locked)
+            {
+                _display.Show("Skab er låst");
+            }
+
         }
         
         private void HandleRFIDDetectedEvent(object sender, RfidDetectedEventArgs e)
