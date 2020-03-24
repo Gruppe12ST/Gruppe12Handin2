@@ -56,7 +56,7 @@ namespace LadeskabConsoleApp
                     case "R":
                         Console.WriteLine("Indtast RFID: ");
                         string id = Console.ReadLine();
-                        rfidReader.SetRfidId(Convert.ToInt16(id));
+                        rfidReader.SetRfidId(Convert.ToInt32(id));
                         break;
                 }
 

@@ -15,6 +15,8 @@ namespace LadeskabUnitTest
     {
         private IDateTimeProvider _dateTime;
         private ILogFile _uut;
+        private string _path = @"..\..\LoggedEventsDocument.txt";
+
 
         [SetUp]
         public void Setup()
@@ -27,9 +29,8 @@ namespace LadeskabUnitTest
         public void LogDoorLocked_LockedIdIs33_LockedDoorLogged()
         {
             _uut.LogDoorLocked(33);
-            var filetext = File.ReadLines("@/../../LogEventToFile.txt");
+            var filetext = File.ReadLines(_path);
             Assert.IsTrue(filetext.ToString().Length > 1);
-
         }
 
         [Test]
@@ -39,5 +40,19 @@ namespace LadeskabUnitTest
             _dateTime.Received(1).GetDateTime();
         }
 
+        //[Test]
+        //public void LogDoorUnLocked_LockedIdIs34_UnLockedDoorLogged()
+        //{
+        //    _uut.LogDoorUnlocked(34);
+        //    var filetext = File.ReadLines(_path);
+        //    Assert.IsTrue(filetext.ToString().Length > 1);
+        //}
+
+        //[Test]
+        //public void LogDoorUnLocked_LockedIdI34_datetimeprovider()
+        //{
+        //    _uut.LogDoorUnlocked(34);
+        //    _dateTime.Received(1).GetDateTime();
+        //}
     }
 }
