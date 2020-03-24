@@ -24,15 +24,17 @@ namespace LadeskabConsoleApp
 
             bool done = false;
 
+            Console.WriteLine("Kontrol menu:");
+            Console.WriteLine("-------------------");
+            Console.WriteLine("[E]    Exit programmet");
+            Console.WriteLine("[O]    Åben døren");
+            Console.WriteLine("[C]    Luk døren");
+            Console.WriteLine("[R]    Indlæs RFID-tag");
+
+
             do
             {
-                Console.WriteLine("Kontrol menu:");
-                Console.WriteLine("-------------------");
-                Console.WriteLine("[E]    Exit programmet");
-                Console.WriteLine("[O]    Åben døren");
-                Console.WriteLine("[C]    Luk døren");
-                Console.WriteLine("[R]    Indlæs RFID-tag");
-
+                
 
                 string input = Console.ReadLine();
 
