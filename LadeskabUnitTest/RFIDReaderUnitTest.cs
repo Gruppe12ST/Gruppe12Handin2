@@ -34,10 +34,11 @@ namespace LadeskabUnitTest
         [Test]
         public void HandleNoEvent_NoIdSet()
         {
-            Assert.That(_receivedEventArgs.Id, Is.Null);
+            Assert.That(_receivedEventArgs, Is.Null);
         }
 
         //One - input
+        [Test]
         public void SetRfidId_IdSet_EventFiredOne()
         {
             int id = 100;
@@ -46,6 +47,7 @@ namespace LadeskabUnitTest
         }
 
         //One - output
+        [Test]
         public void SetRfidId_IdSet_CorrectNewIdRecivedOne()
         {
             int id = 100;
