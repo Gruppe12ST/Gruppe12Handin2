@@ -49,7 +49,16 @@ namespace LadeskabUnitTest
             _display.Received(1).Show("Tilslut telefon");
         }
 
+        //Test efter et event er kaldt, som har været at lukke døren som det første 
+        [Test]
+        public void One_HandleDoorChangedEvent_CLose_Udskriv_Intet()
+        {
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs { Open = false });
+            _display.DidNotReceive().Show("Tilslut telefon");
+            _display.DidNotReceive().Show("Indlæs RFID");
+        }
 
+        //Test af to event, hvor døren åbner og lukker
         [Test]
         public void Two_HandleDoorChangedEvent_OpenClosed_Udskriv_Tilslut_IndlæsRFID()
         {
@@ -61,6 +70,8 @@ namespace LadeskabUnitTest
             _display.Received(1).Show("Indlæs RFID");
         }
 
+        
+        //Test af flere events i streg til døren
         [Test]
         public void Many_HandleDoorChangedEvent_OpenClosedOpen()
         {
