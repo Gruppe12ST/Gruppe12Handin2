@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LadeskabClassLibrary;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace LadeskabUnitTest
@@ -27,6 +28,33 @@ namespace LadeskabUnitTest
                 (o, args) => { _receivedEventArgs = args; };
         }
 
+        //ZOBMIES Test
+
+        //Zero
+        [Test]
+        public void HandleNoEvent_NoIdSet()
+        {
+            Assert.That(_receivedEventArgs.Id, Is.Null);
+        }
+
+        //One - input
+        public void SetRfidId_IdSet_EventFiredOne()
+        {
+            int id = 100;
+            _uut.SetRfidId(id);
+            Assert.That(_receivedEventArgs, Is.Not.Null);
+        }
+
+        //One - output
+        public void SetRfidId_IdSet_CorrectNewIdRecivedOne()
+        {
+            int id = 100;
+            _uut.SetRfidId(id);
+            Assert.That(_receivedEventArgs.Id, Is.EqualTo(id));
+        }
+
+        //Many
+        //Event udført
         [TestCase(222)]
         [TestCase(3838)]
         [TestCase(2)]
@@ -39,6 +67,8 @@ namespace LadeskabUnitTest
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
+        //Many
+        //Korrekt id genkendt
         [TestCase(222)]
         [TestCase(3838)]
         [TestCase(2)]
@@ -50,5 +80,6 @@ namespace LadeskabUnitTest
             _uut.SetRfidId(id);
             Assert.That(_receivedEventArgs.Id, Is.EqualTo(id));
         }
+
     }
 }
