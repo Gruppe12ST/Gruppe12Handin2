@@ -25,6 +25,12 @@ namespace LadeskabUnitTest
                 (o, args) => { _doorOcEventArgs = args; };
         }
 
+        [Test]
+        public void DoorOCEvent_zeroEvent_EventNotFired()
+        {
+            Assert.That(_doorOcEventArgs, Is.Null);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void SetDoor_DoorChanged_EventFired(bool doorOpen)
@@ -37,14 +43,14 @@ namespace LadeskabUnitTest
         public void SetDoor_DoorOpen_CorrectStatus(bool doorOpen)
         {
             _uut.SetDoor(doorOpen);
-            Assert.That(_doorOcEventArgs.Open,Is.EqualTo(true));
+            Assert.That(_doorOcEventArgs.Open,Is.EqualTo(doorOpen));
         }
 
         [TestCase(false)]
         public void SetDoor_DoorClosed_CorrectStatus(bool doorOpen)
         {
             _uut.SetDoor(doorOpen);
-            Assert.That(_doorOcEventArgs.Open, Is.EqualTo(false));
+            Assert.That(_doorOcEventArgs.Open, Is.EqualTo(doorOpen));
         }
 
         [Test]
