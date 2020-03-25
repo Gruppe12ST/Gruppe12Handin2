@@ -25,9 +25,6 @@ namespace LadeskabUnitTest
         {
             _dateTime = Substitute.For<IDateTimeProvider>(); 
             _uut = new LogFile(_dateTime);
-
-            _input = new FileStream(_path,FileMode.Open,FileAccess.Read);
-            _fileReader = new StreamReader(_input);
         }
 
 
@@ -36,12 +33,23 @@ namespace LadeskabUnitTest
         {
             _uut.LogDoorLocked(33);
 
-            string inputRecord = _fileReader.ReadLine();
-            string[] inputFields = inputRecord.Split(';');
+            _input = new FileStream(_path, FileMode.Open, FileAccess.Read);
+            _fileReader = new StreamReader(_input);
 
-            Assert.IsTrue(inputFields.Last().Length > 1);
+            string inputR;
+            string[] inputF;
+            List<string> text = new List<string>();
+            while ((inputR = _fileReader.ReadLine()) != null)
+            {
+                inputF = inputR.Split(';');
+                text.Add(inputF[0]);
+            }
+
             _fileReader.Close();
-            
+
+            string fiiletext = text.Last();
+            Assert.IsTrue(fiiletext.Length > 1);
+
         }
 
         [Test]
@@ -56,8 +64,23 @@ namespace LadeskabUnitTest
         public void LogDoorUnLocked_LockedIdIs34_UnLockedDoorLogged()
         {
             _uut.LogDoorUnlocked(34);
-            var filetext = File.ReadLines(_path);
-            Assert.IsTrue(filetext.ToString().Length > 1);
+
+            _input = new FileStream(_path, FileMode.Open, FileAccess.Read);
+            _fileReader = new StreamReader(_input);
+
+            string inputR;
+            string[] inputF;
+            List<string> text = new List<string>();
+            while ((inputR = _fileReader.ReadLine()) != null)
+            {
+                inputF = inputR.Split(';');
+                text.Add(inputF[0]);
+            }
+
+            _fileReader.Close();
+
+            string fiiletext = text.Last();
+            Assert.IsTrue(fiiletext.Length > 1);
         }
 
         [Test]
@@ -67,11 +90,7 @@ namespace LadeskabUnitTest
             _dateTime.Received(1).GetDateTime();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _fileReader.Close();
-        }
+       
 
     }
 }
