@@ -8,7 +8,7 @@ namespace LadeskabClassLibrary
 {
     public class DateTimeProvider : IDateTimeProvider
     { 
-        private DateTime _gen = DateTime.Now;
+        private readonly DateTime _gen = DateTime.Now;
 
         public DateTime GetDateTime()
         {
