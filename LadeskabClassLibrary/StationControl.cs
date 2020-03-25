@@ -68,7 +68,7 @@ namespace LadeskabClassLibrary
             {
                 if (_doorOpen)
                 {
-                    _display.Show(" ");
+                    _display.Show("Ladeskab ledigt");
                     _state = LadeskabState.Available;
 
                 }

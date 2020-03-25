@@ -75,6 +75,7 @@ namespace LadeskabClassLibrary
         public void StopCharge()
         {
             _usbCharger.StopCharge();
+            _state = ChargingState.NotCharging;
         }
 
 
