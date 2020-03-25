@@ -27,7 +27,6 @@ namespace LadeskabUnitTest
             _uut = new LogFile(_dateTime);
         }
 
-
         [Test]
         public void LogDoorLocked_LockedIdIs33_LockedDoorLogged()
         {
@@ -47,8 +46,8 @@ namespace LadeskabUnitTest
 
             _fileReader.Close();
 
-            string fiiletext = text.Last();
-            Assert.IsTrue(fiiletext.Length > 1);
+            string filetext = text.Last();
+            Assert.IsTrue(filetext.Length > 1);
 
         }
 
