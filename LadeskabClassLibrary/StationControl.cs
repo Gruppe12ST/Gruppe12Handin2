@@ -36,6 +36,7 @@ namespace LadeskabClassLibrary
         {
             Available,
             Locked,
+            Taken,
             DoorOpen
         };
 
@@ -63,10 +64,16 @@ namespace LadeskabClassLibrary
                 }
             }
 
-            if (_state == LadeskabState.Locked)
+            if (_state == LadeskabState.Taken)
             {
-                _display.Show("Skab er låst");
+                if (_doorOpen)
+                {
+                    _display.Show(" ");
+                    _state = LadeskabState.Available;
+
+                }
             }
+
 
         }
         
@@ -102,7 +109,7 @@ namespace LadeskabClassLibrary
                         _door.UnlockDoor();
                         _logfile.LogDoorUnlocked(id);
                         _display.Show("Fjern telefon");
-                        _state = LadeskabState.Available;
+                        _state = LadeskabState.Taken;
                     }
                     else
                     {

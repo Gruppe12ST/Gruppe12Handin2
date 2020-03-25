@@ -69,6 +69,27 @@ namespace LadeskabUnitTest
             _display.Received(2).Show("Tilslut telefon");
         }
 
+        [Test]
+        public void HandleDoorChangedEvent_Taken()
+        {
+            _chargeControl.IsConnected().Returns(true);
+            //Skab er blevet låst og låst op igen
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = 1 });
+            _rfidReader.RfidDetectedEvent += Raise.EventWith(new RfidDetectedEventArgs { Id = 1 });
+
+            //Dør åbnes 
+            _door.DoorOCEvent += Raise.EventWith(new DoorOCEventArgs {Open = true});
+            
+            _display.Received(1).Show(" ");
+        }
+
+        [Test]
+        public void zerorfidDetected()
+        {
+            int id = _uut._id;
+            Assert.That(id,Is.EqualTo(0));
+        }
+
 
         [Test]
         public void RFIDDetected_skabAvailable_usbChargerNotConnected()

@@ -50,13 +50,13 @@ namespace LadeskabConsoleApp
                         break;
                     case "c":
                     case "C":
-                        door.SetDoor(false); 
+                        door.SetDoor(false);
                         break;
                     case "r":
                     case "R":
                         Console.WriteLine("Indtast RFID: ");
-                        string id = Console.ReadLine();
-                        rfidReader.SetRfidId(Convert.ToInt16(id));
+                        string id_ = Console.ReadLine();
+                        rfidReader.SetRfidId(Convert.ToInt16(id_));
                         break;
                 }
 
